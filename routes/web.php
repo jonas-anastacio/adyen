@@ -12,5 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('checkout');
+});
+
+Route::get('/classic', function() {
+    return view('classic');
+});
+
+Route::get('/classic_recurring', function() {
+    return view('classic_recurring');
+});
+
+Route::get('/classic_boleto', function() {
+    return view('classic_boleto');
 });

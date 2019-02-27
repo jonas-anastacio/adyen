@@ -19,6 +19,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('checkout')->group(function() {
-    Route::post('payment', 'Checkout@payment');
-    Route::post('paymentMethods', 'Checkout@paymentMethods');
+    Route::post('methods', 'Checkout@paymentMethods');
+    Route::post('pay/boleto', 'Checkout@boletoPayment');
+    Route::post('pay/credit', 'Checkout@creditCardPayment')->name('pay.credit');
+    Route::prefix('classic')->group(function() {
+        Route::post('pay/boleto', 'ClassicCheckout@getBoleto')->name('classic.boleto');
+        Route::post('pay/credit', 'ClassicCheckout@authorizePurchase')->name('classic.credit');
+        Route::post('cancel', 'ClassicCheckout@cancelPurchase')->name('classic.cancel');
+    });
 });
